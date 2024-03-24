@@ -21,7 +21,7 @@
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
 # Set your time zone.
-    time.timeZone = "Asia/Kolkata";
+  time.timeZone = "Asia/Kolkata";
 
   networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
@@ -31,7 +31,7 @@
 # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.options = "caps:escape";
-programs.dconf.enable = true;
+  programs.dconf.enable = true;
   security.rtkit.enable = true; # Optional but recommended
     services.pipewire = {
       enable = true;
@@ -39,9 +39,10 @@ programs.dconf.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
 
-# Uncomment if you want to use JACK applications
-# jack.enable = true;
-    };
+    # Uncomment if you want to use JACK applications
+    # jack.enable = true;
+  };
+
 # Enable sound.
   sound.enable = true;
   hardware.opengl.enable = true;
@@ -54,10 +55,10 @@ programs.dconf.enable = true;
 
 # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.fadedead = {
-      initialPassword = "pw123";
+    initialPassword = "pw123";
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
+      shell = pkgs.zsh;
     packages = with pkgs; [
       tree
     ];
