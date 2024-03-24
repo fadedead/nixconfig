@@ -48,6 +48,7 @@
     jq
     bluetuith
     stow
+    ripgrep
 
     noto-fonts
     noto-fonts-cjk

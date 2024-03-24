@@ -20,6 +20,7 @@ in
       enable = true;
       enableAutosuggestions = true;
       syntaxHighlighting.enable = false;
+      shellAliases = myAliases;
       oh-my-zsh = {
         enable = true;
         theme = "robbyrussell";
