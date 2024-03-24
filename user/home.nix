@@ -47,6 +47,7 @@
     btop
     jq
     bluetuith
+    stow
 
     noto-fonts
     noto-fonts-cjk

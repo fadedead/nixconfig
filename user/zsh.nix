@@ -2,8 +2,16 @@
 
 let
   myAliases = {
-    nixos-rebuild = "systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=16000M -p CPUQuota=60% nixos-rebuild";
-    home-manager = "systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager";
+    ls = "ls --color=auto";
+    grep = "grep --color=auto";
+    vim = "nvim";
+    nvcon = "nvim ~/.config/nvim";
+    gitstpush = "git subtree push --prefix dist origin gh-pages";
+    configu = "home-manager switch --flake ~/.dotfiles";
+    systemu = "sudo nixos-rebuild switch --flake ~/.dotfiles";
+    sf = "cd $(dirname $(fd --type file | fzf))";
+    nixos-rebuild = "systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=4096M -p CPUQuota=60% nixos-rebuild";
+    home-manager = "systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=4096M -p CPUQuota=60% home-manager";
   };
 in
 {
