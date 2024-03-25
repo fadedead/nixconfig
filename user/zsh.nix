@@ -5,13 +5,13 @@ let
     ls = "ls --color=auto";
     grep = "grep --color=auto";
     vim = "nvim";
+    nixcon = "nvim ~/nixconfig/";
     nvcon = "nvim ~/.config/nvim";
+    dotcon = "nvim ~/dotfiles";
     gitstpush = "git subtree push --prefix dist origin gh-pages";
-    configu = "home-manager switch --flake ~/.dotfiles";
-    systemu = "sudo nixos-rebuild switch --flake ~/.dotfiles";
+    configu = "home-manager switch --flake ~/nixconfig";
+    systemu = "sudo nixos-rebuild switch --flake ~/nixconfig";
     sf = "cd $(dirname $(fd --type file | fzf))";
-    nixos-rebuild = "systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=4096M -p CPUQuota=60% nixos-rebuild";
-    home-manager = "systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=4096M -p CPUQuota=60% home-manager";
   };
 in
 {

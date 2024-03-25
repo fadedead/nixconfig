@@ -4,91 +4,92 @@
   imports = [
     ./zsh.nix
   ];
-# Home Manager needs a bit of information about you and the paths it should
-# manage.
+
+  # Home
   home.username = "fadedead";
   home.homeDirectory = "/home/fadedead";
-  home.stateVersion = "23.11"; # Please read the comment before changing.
 
-# The home.packages option allows you to install Nix packages into your
-# environment.
-    home.packages = with pkgs; [
-    xwayland
-
-      hyprland
-      waybar
-      wofi
-      swaybg
-      wl-clipboard
-      wezterm
-
-      slurp
-      grim
-
-      neovim
-
-      brave
-
-      keepass
-
-      fzf
-      unzip
-      btop
-      jq
-      bluetuith
-      stow
-      ripgrep
-
-      zig
-      nodejs_21
-      python3
-
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      fira-code
-      fira-code-symbols
-      fira-code-nerdfont
-      nerdfonts
-      ];
-
-# Home Manager is pretty good at managing dotfiles. The primary way to manage
-# plain files is through 'home.file'.
-  home.file = {
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Grey-Darkest";
-    };
-
-    iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-
-    font = {
-      name = "Sans";
-      size = 11;
-    };
-  };
-
+  # ENV variables
   home.sessionVariables = {
     EDITOR = "nvim";
     NIXOS_OZONE_WL = "1"; 
   };
 
+  home.packages = with pkgs; [
+    hyprland
+    waybar
+    wofi
+    swaybg
+    wl-clipboard
+    wezterm
+
+    xwayland
+    slurp
+    grim
+
+    neovim
+
+    brave
+
+    keepass
+
+    cinnamon.nemo
+
+    wireguard-tools
+    openresolv
+
+    fzf
+    unzip
+    btop
+    jq
+    bluetuith
+    stow
+    ripgrep
+    brillo
+    tree
+
+    zig
+    nodejs_21
+    python3
+
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    fira-code
+    fira-code-symbols
+    fira-code-nerdfont
+    nerdfonts
+  ];
+
+  # theme gtk
+  gtk = {
+    enable = true;
+    theme = {
+      name = "catppuccin-gtk";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "mauve" ];
+        size = "compact";
+        tweaks = [ "rimless" "black" ];
+        variant = "mocha";
+      };
+    };
+  };
+
+  xdg.configFile = {
+    "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+    "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+    "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+  };
+
+# theme mouse pointer
   home.pointerCursor = {
     gtk.enable = true;
-# x11.enable = true;
+    x11.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Ice";
     size = 12;
   };
 
-
-# Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  home.stateVersion = "23.11";
 }

@@ -1,88 +1,95 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
     ./hardware-configuration.nix
     ];
+  
+  # Boot
+  boot = {
+  loader.systemd-boot.enable = true;
+  loader.efi.canTouchEfiVariables = true;
+  # kernelParams = [ "i915.force_probe=46a6" ]; 
+  };
 
-# Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-# Define your hostname.
-  networking.hostName = "hyprcat"; 
-
-# Pick only one of the below networking options.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-# Set your time zone.
+  # Timezone
   time.timeZone = "Asia/Kolkata";
 
-  networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # environment.etc = {
+  #   "resolv.conf".text = "nameserver 1.1.1.1\n";
+  # };
 
-
-  boot.kernelParams = [ "i915.force_probe=46a6" ];
-
-# Configure keymap in X11
+  # Networking
+  networking = { 
+    hostName = "hyprcat"; 
+    networkmanager.enable = true;  
+    nameservers = ["1.1.1.1" "8.8.4.4" "8.8.8.8" "9.9.9.9"];
+  };
+  
+  # Xorg keyboard
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.options = "caps:escape";
-  programs.dconf.enable = true;
-  security.rtkit.enable = true; # Optional but recommended
-    services.pipewire = {
+
+  # Xorg Touchpad 
+  services.xserver.libinput.enable = true;
+
+  # Sound
+  security.rtkit.enable = true;   
+  services.pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-
-    # Uncomment if you want to use JACK applications
-    # jack.enable = true;
+      jack.enable = true;
   };
-
-# Enable sound.
   sound.enable = true;
+
+  # Video 
   hardware.opengl.enable = true;
   hardware.nvidia.modesetting.enable = true;
+
+  # Brightness control
+  hardware.brillo.enable = true;
+
+  # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-# Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  # System packages
+  environment.systemPackages = with pkgs; [ vim wget git ];
 
-# Define a user account. Don't forget to set a password with ‘passwd’.
+  # User
   users.users.fadedead = {
     initialPassword = "pw123";
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-      shell = pkgs.zsh;
-    packages = with pkgs; [
-      tree
-    ];
+    extraGroups = ["power" "storage" "wheel" "audio" "video" "networkmanager"]; 
+    shell = pkgs.zsh;
   };
-
-  security.sudo.wheelNeedsPassword = false;
-
+  
+  # Auto login user
   services.getty.autologinUser = "fadedead";
 
-  users.defaultUserShell = pkgs.zsh;
+  # sudo Password for wheel group
+  security.sudo.wheelNeedsPassword = false;
+
+  # Enable zsh
   programs.zsh.enable = true;
 
-# List packages installed in system profile. To search, run:
-# $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      wget
-      git
-  ];
+  # Hyprland portals
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+  };
+  
+  # dconf for gtk
+  programs.dconf.enable = true;
 
-
-# Enable the OpenSSH daemon.
+  # OpenSSH
   services.openssh.enable = true;
 
+  # Battery optimisation using auto-cpufreq
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
     battery = {
@@ -95,34 +102,8 @@
     };
   };
 
-# Open ports in the firewall.
-#networking.firewall.allowedTCPPorts = [ ... ];
-#networking.firewall.allowedUDPPorts = [ ... ];
-# Or disable the firewall altogether.
-# networking.firewall.enable = false;
+  # Enable Flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes"];
 
-# Copy the NixOS configuration file and link it from the resulting system
-# (/run/current-system/configuration.nix). This is useful in case you
-# accidentally delete configuration.nix.
-# system.copySystemConfiguration = true;
-
-# This option defines the first version of NixOS you have installed on this particular machine,
-# and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-#
-# Most users should NEVER change this value after the initial install, for any reason,
-# even if you've upgraded your system to a new NixOS release.
-#
-# This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-# so changing it will NOT upgrade your system.
-#
-# This value being lower than the current NixOS release does NOT mean your system is
-# out of date, out of support, or vulnerable.
-#
-# Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-# and migrated your data accordingly.
-#
-# For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "23.11"; # Did you read the comment?
-    nix.settings.experimental-features = [ "nix-command" "flakes"];
-}
+  system.stateVersion = "23.11";     }
 
