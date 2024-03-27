@@ -16,9 +16,9 @@
   # Timezone
   time.timeZone = "Asia/Kolkata";
 
-  # environment.etc = {
-  #   "resolv.conf".text = "nameserver 1.1.1.1\n";
-  # };
+  environment.etc = {
+    "resolv.conf".text = "nameserver 1.1.1.1\n";
+  };
 
   # Networking
   networking = { 

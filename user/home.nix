@@ -22,6 +22,7 @@
     swaybg
     wl-clipboard
     wezterm
+    swaynotificationcenter
 
     xwayland
     slurp
@@ -39,6 +40,7 @@
     openresolv
 
     fzf
+    fd
     unzip
     btop
     jq
