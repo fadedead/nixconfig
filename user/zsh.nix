@@ -9,7 +9,7 @@ let
     nvcon = "nvim ~/.config/nvim";
     dotcon = "nvim ~/dotfiles";
     gitstpush = "git subtree push --prefix dist origin gh-pages";
-    configu = "home-manager switch --flake ~/nixconfig";
+    configu = "home-manager switch --flake ~/nixconfig --impure";
     systemu = "sudo nixos-rebuild switch --flake ~/nixconfig";
     sf = "cd $(dirname $(fd --type file | fzf))";
   };

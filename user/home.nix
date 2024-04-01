@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -31,9 +31,11 @@
     neovim
 
     brave
+    firefox
+    discord
+    spotify
 
     keepass
-
     cinnamon.nemo
 
     wireguard-tools
@@ -53,6 +55,9 @@
     zig
     nodejs_21
     python3
+    cargo
+
+    mysql-workbench
 
     noto-fonts
     noto-fonts-cjk

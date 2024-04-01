@@ -59,6 +59,9 @@
   # System packages
   environment.systemPackages = with pkgs; [ vim wget git ];
 
+  # Allow unfree software
+  nixpkgs.config.allowUnfree = true;
+
   # User
   users.users.fadedead = {
     initialPassword = "pw123";
