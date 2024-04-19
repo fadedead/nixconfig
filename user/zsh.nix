@@ -6,7 +6,7 @@ let
     grep = "grep --color=auto";
     vim = "nvim";
     nixcon = "nvim ~/nixconfig/";
-    nvcon = "nvim ~/.config/nvim";
+    nvcon = "nvim ~/dotfiles/.config/nvim";
     dotcon = "nvim ~/dotfiles";
     gitstpush = "git subtree push --prefix dist origin gh-pages";
     configu = "home-manager switch --flake ~/nixconfig --impure";
@@ -32,8 +32,8 @@ in
         ];
       };
       initExtra = ''
-        PROMPT='%F{#cba6f7}[%~]%f
-        %F{#cba6f7}→%f '
+        PROMPT='%F{#fff}[%~]%f
+        %F{#fff}→%f '
         [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
       '';
     };

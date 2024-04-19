@@ -28,12 +28,12 @@
     slurp
     grim
 
-    neovim
-
     brave
     firefox
     discord
     spotify
+
+    neovim
 
     keepass
     cinnamon.nemo
