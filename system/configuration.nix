@@ -16,20 +16,27 @@
   # Timezone
   time.timeZone = "Asia/Kolkata";
 
-  environment.etc = {
-    "resolv.conf".text = "nameserver 1.1.1.1\n";
-  };
-
   # Networking
   networking = { 
     hostName = "hyprcat"; 
     networkmanager.enable = true;  
     nameservers = ["1.1.1.1" "8.8.4.4" "8.8.8.8" "9.9.9.9"];
   };
-  
+
+  # environment.etc = {
+  #   "resolv.conf".text = "nameserver 1.1.1.1\nnameserver 8.8.8.8";
+  # };
+ 
   # Xorg keyboard
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.options = "caps:escape";
+
+  # Mysql
+  services.mysql.package = pkgs.mariadb;
+  services.mysql.enable = true;
+
+  # Gnome key-ring
+  services.gnome.gnome-keyring.enable = true;
 
   # Xorg Touchpad 
   services.xserver.libinput.enable = true;

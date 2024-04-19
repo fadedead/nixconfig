@@ -55,9 +55,13 @@
     zig
     nodejs_21
     python3
+    virtualenv
     cargo
+    typescript
 
     mysql-workbench
+    dbeaver   
+    mariadb
 
     noto-fonts
     noto-fonts-cjk
