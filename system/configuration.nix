@@ -32,8 +32,13 @@
   services.xserver.xkb.options = "caps:escape";
 
   # Mysql
-  services.mysql.package = pkgs.mariadb;
-  services.mysql.enable = true;
+  services.mysql = {
+    enable = true;
+    package = pkgs.mysql;
+  };
+
+  # Enable flatpack
+  services.flatpak.enable = true;
 
   # Gnome key-ring
   services.gnome.gnome-keyring.enable = true;
@@ -65,6 +70,7 @@
 
   # System packages
   environment.systemPackages = with pkgs; [ vim wget git ];
+    
 
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;

@@ -13,6 +13,9 @@ let
     systemu = "sudo nixos-rebuild switch --flake ~/nixconfig";
     sf = "cd $(dirname $(fd --type file | fzf))";
   };
+
+  myExports = ''
+  '';
 in
 {
   programs = {
@@ -35,6 +38,7 @@ in
         PROMPT='%F{#fff}[%~]%f
         %F{#fff}→%f '
         [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+        ${myExports}
       '';
     };
   };

@@ -43,6 +43,7 @@
 
     fzf
     fd
+    zip
     unzip
     btop
     jq
@@ -51,6 +52,7 @@
     ripgrep
     brillo
     tree
+    bfg-repo-cleaner
 
     zig
     nodejs_21
@@ -58,10 +60,14 @@
     virtualenv
     cargo
     typescript
+    jdk8
+    maven
 
+    jetbrains.idea-community
     mysql-workbench
     dbeaver   
-    mariadb
+    percona-server_8_0
+    bruno
 
     noto-fonts
     noto-fonts-cjk
